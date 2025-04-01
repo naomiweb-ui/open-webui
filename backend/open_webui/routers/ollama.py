@@ -86,6 +86,12 @@ log.setLevel(SRC_LOG_LEVELS["OLLAMA"])
 #     tokens = response.json()
 #     print(tokens)
 
+# def construct_index(directory_path): 
+#     max_input_size = 4096
+#     num_outputs = 512
+#     max_chunk_overlap = 20
+#     chunk_size_limit = 600
+
 
 async def send_get_request(url, key=None, user: UserModel = None):
     timeout = aiohttp.ClientTimeout(total=AIOHTTP_CLIENT_TIMEOUT_MODEL_LIST)
