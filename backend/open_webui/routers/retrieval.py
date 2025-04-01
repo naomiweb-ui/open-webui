@@ -756,10 +756,10 @@ async def update_query_settings(
 
 def split_doc(docs):
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=request.app.state.config.CHUNK_SIZE,
-        chunk_overlap=request.app.state.config.CHUNK_OVERLAP
+        chunk_size=1000,
+        chunk_overlap=100
     )
-all_splits = text_splitter.split_documents(docs)
+    all_splits = text_splitter.split_documents(docs)
 
 
 
