@@ -752,6 +752,16 @@ async def update_query_settings(
 #
 ####################################
 
+# Split loaded document into chunks
+
+def split_doc(docs):
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=request.app.state.config.CHUNK_SIZE,
+        chunk_overlap=request.app.state.config.CHUNK_OVERLAP
+    )
+all_splits = text_splitter.split_documents(docs)
+
+
 
 def save_docs_to_vector_db(
     request: Request,

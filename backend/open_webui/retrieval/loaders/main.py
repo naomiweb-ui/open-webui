@@ -123,7 +123,7 @@ class Loader:
         self.kwargs = kwargs
 
     def load(
-        self, filename: str, file_content_type: str, file_path: str
+        self, filename: str, file_content_type: str, file_path: "././data/user_manual_us.pdf"
     ) -> list[Document]:
         loader = self._get_loader(filename, file_content_type, file_path)
         docs = loader.load()
