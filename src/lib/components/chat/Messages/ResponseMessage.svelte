@@ -24,7 +24,8 @@
 		getMessageContentParts,
 		sanitizeResponseContent,
 		createMessagesList,
-		formatDate
+		formatDate,
+		highlightCitations
 	} from '$lib/utils';
 	import { WEBUI_BASE_URL } from '$lib/constants';
 
@@ -740,7 +741,15 @@
 									<ContentRenderer
 										id={message.id}
 										{history}
-										content={message.content}
+										content={message.content
+											? `${highlightCitations(
+													(message.content)
+														//.replace(/\*\*(.*?)\*\*/g, '')					// replaces a string into ** **
+														//.replace(/\[(.*?)\]/g, '**$1**')					// converts a string into [ ] in bold and gets rid of [ ]
+														//.replace(/\[(.*?)\]/g, '[$1]($1)')		// converts a string into [ ] into a link and gets rid of [ ]
+														//.replace(/\[(.*?)\]/g, '_$1_')					// converts a string into [ ] in italic and gets rid of [ ]
+												)}`
+											: ''}
 										sources={message.sources}
 										floatingButtons={message?.done && !readOnly}
 										save={!readOnly}

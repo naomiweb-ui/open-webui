@@ -309,6 +309,14 @@ export const formatDate = (inputDate) => {
 	}
 };
 
+export const highlightCitations = (content: string) => {
+	return content
+		//.replace(/\[(.*?)\]/g, '**$1**')	// converts a string into [ ] in bold and gets rid of [ ]
+		.replace(/\[(.*?)\]/g, '[$1]($1)')	// converts a string into [ ] into a link and gets rid of [ ]
+		//.replace(/\[(.*?)\]/g, '_$1_')	// converts a string into [ ] in italic and gets rid of [ ]
+
+};
+
 export const copyToClipboard = async (text) => {
 	let result = false;
 	if (!navigator.clipboard) {
