@@ -150,12 +150,6 @@
 			saveAs(blob, `chat-export-${Date.now()}.json`);
 		}
 	};
-
-	const openWindow = () => {
-		let newWindow = window.open("http://localhost:5173/", "", "width=400, height=500");
-		newWindow.moveTo(1100, 500);
-	}
-
 </script>
 
 <Dropdown
@@ -337,30 +331,6 @@
 			>
 				<Clipboard className=" size-4" strokeWidth="1.5" />
 				<div class="flex items-center">{$i18n.t('Copy')}</div>
-			</DropdownMenu.Item>
-
-			<DropdownMenu.Item
-				class="flex gap-2 items-center px-3 py-2 text-sm  cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
-				id="chat-create-button"
-				on:click={async () => {
-					openWindow();
-				}}
-				>
-					<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="0.5"
-							stroke="currentColor"
-							class="size-6"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M17.701,3.919H2.299c-0.223,0-0.405,0.183-0.405,0.405v11.349c0,0.223,0.183,0.406,0.405,0.406h15.402c0.224,0,0.405-0.184,0.405-0.406V4.325C18.106,4.102,17.925,3.919,17.701,3.919 M17.296,15.268H2.704V7.162h14.592V15.268zM17.296,6.352H2.704V4.73h14.592V6.352z M5.947,5.541c0,0.223-0.183,0.405-0.405,0.405H3.515c-0.223,0-0.405-0.182-0.405-0.405c0-0.223,0.183-0.405,0.405-0.405h2.027C5.764,5.135,5.947,5.318,5.947,5.541">
-							/>
-						</svg>
-				<div class="flex items-center">{$i18n.t('Create Window')}</div>
 			</DropdownMenu.Item>
 
 			{#if !$temporaryChatEnabled}
