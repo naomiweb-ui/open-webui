@@ -309,13 +309,16 @@ export const formatDate = (inputDate) => {
 	}
 };
 
-export const highlightCitations = (content: string) => {
-	return content
-		//.replace(/\[(.*?)\]/g, '**$1**')	// converts a string into [ ] in bold and gets rid of [ ]
-		.replace(/\[(.*?)\]/g, '[$1]($1)')	// converts a string into [ ] into a link and gets rid of [ ]
-		//.replace(/\[(.*?)\]/g, '_$1_')	// converts a string into [ ] in italic and gets rid of [ ]
-
-};
+// export const highlightCitations = (content: string) => {
+// 	return content
+// 		//.replace(/\[(.*?)\]/g, '**$1**')	// converts a string into [ ] in bold and gets rid of [ ]
+// 		//.replace(/\[(.*?)\]/g, '\n[$1](http://localhost:8080/api/v1/files/5900b946-5a5a-409b-b4cf-f12dc6acf093/content#)')	// converts a string into [ ] into a link and gets rid of [ ]
+// 		//.replace(/\[(.*?)\]/g, '_$1_')	// converts a string into [ ] in italic and gets rid of [ ]
+// 		//.replace(/\[(.*?)\]/g, '\n\n>$1\n\n')	 // converts a string into [ ] into a blockquote
+// 		//.replace(/\[(.*?)\]/g, '![alt_text](https://www.evolucare.com/wp-content/uploads/2018/07/myrian-intrasense-480x270.png)')	// gets rid of a string into [ ] and displays an image from internet
+// 		//.replace(/\[(.*?)\]/g, '![alt_text](../../../../assets/emojis/00a9.svg)')	// gets rid of a string into [ ] and displays an image from Open WebUI folder
+// 		//.replace(/"([^"]+)"/g, '**"$1"**')	// converts words into quotes in bold 
+// };
 
 export const copyToClipboard = async (text) => {
 	let result = false;
