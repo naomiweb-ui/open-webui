@@ -80,6 +80,8 @@
 	style="display: none;"
 />
 
+<!-- Make Capture and Upload Files features disappear by commenting the code -->
+<!--
 <Dropdown
 	bind:show
 	on:change={(e) => {
@@ -321,3 +323,4 @@
 		</DropdownMenu.Content>
 	</div>
 </Dropdown>
+-->

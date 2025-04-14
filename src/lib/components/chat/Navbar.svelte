@@ -24,6 +24,7 @@
 	import UserMenu from '$lib/components/layout/Sidebar/UserMenu.svelte';
 	import MenuLines from '../icons/MenuLines.svelte';
 	import AdjustmentsHorizontal from '../icons/AdjustmentsHorizontal.svelte';
+	import { showSettings } from '$lib/stores';
 
 	import PencilSquare from '../icons/PencilSquare.svelte';
 
@@ -39,6 +40,8 @@
 
 	let showShareChatModal = false;
 	let showDownloadChatModal = false;
+
+	let files;
 </script>
 
 <ShareChatModal bind:show={showShareChatModal} chatId={$chatId} />
@@ -78,6 +81,23 @@
 					<ModelSelector bind:selectedModels showSetDefault={!shareEnabled} />
 				{/if}
 			</div>
+
+			{#if $user.role === 'admin'}
+				<div class='mr-5'>
+					<label for='upload-file-input' class='cursor-pointer font-medium'>
+						{$i18n.t('Upload File')}
+					</label>
+					<input
+						id='upload-file-input'
+						bind:files 
+						type='file'
+						hidden
+						on:change={async() => {
+							await showSettings.set(true);
+						}}
+					>
+				</div>
+			{/if}
 
 			<div class="self-start flex flex-none items-center text-gray-600 dark:text-gray-400">
 				<!-- <div class="md:hidden flex self-center w-[1px] h-5 mx-2 bg-gray-300 dark:bg-stone-700" /> -->
