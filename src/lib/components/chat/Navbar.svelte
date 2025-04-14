@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import { toast } from 'svelte-sonner';
+	import { DropdownMenu } from 'bits-ui';
 
 	import {
 		WEBUI_NAME,
@@ -10,6 +11,7 @@
 		showArchivedChats,
 		showControls,
 		showSidebar,
+		showUploadedFiles,
 		temporaryChatEnabled,
 		user
 	} from '$lib/stores';
@@ -24,7 +26,6 @@
 	import UserMenu from '$lib/components/layout/Sidebar/UserMenu.svelte';
 	import MenuLines from '../icons/MenuLines.svelte';
 	import AdjustmentsHorizontal from '../icons/AdjustmentsHorizontal.svelte';
-	import { showSettings } from '$lib/stores';
 
 	import PencilSquare from '../icons/PencilSquare.svelte';
 
@@ -93,7 +94,7 @@
 						type='file'
 						hidden
 						on:change={async() => {
-							await showSettings.set(true);
+							await showUploadedFiles.set(true);
 						}}
 					>
 				</div>
