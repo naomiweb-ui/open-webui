@@ -366,8 +366,10 @@
 		removeScrollListener();
 	}
 
+	// export let inputFilesHandler: Function;
+
 	let uploadedFiles = [];
-	let inputFiles;
+	let inputFiles = [];
 
 	const uploadFilesHandler = async (inputFiles) => {
 		inputFiles.forEach((uploadedFile) => {
@@ -380,18 +382,23 @@
 
 <Modal size="sm" bind:show>
 
+<!-- Specific code for UploadedFilesModal -->
 	<div class="text-gray-700 dark:text-gray-100">
 		<div class="dark:text-gray-300 px-5 pt-4 pb-1">
 			<h1 class="text-center text-lg font-medium">{$i18n.t('Uploaded Files')}</h1>
-			<div class="mx-[10px] my-[10px]">
-				<ul>
-					{#each uploadedFiles as uploadedFile}
-						<li>{uploadedFile}</li>
-					{/each}
-				</ul>
-			</div>
+			{#if inputFiles}
+				<p>{File}</p>
+				<div class="mx-[10px] my-[10px]">
+					<ul>
+						{#each inputFiles as inputFile, inputFileIdx}
+							<li>Hola</li>
+						{/each}
+					</ul>
+				</div>
+			{/if}
 		</div>
 	</div>
+<!-- End of specific code for UploadedFilesModal -->
 
 	<div class="text-gray-700 dark:text-gray-100">
 		<div class=" flex justify-between dark:text-gray-300 px-5 pt-4 pb-1">

@@ -19,6 +19,7 @@
 	import { slide } from 'svelte/transition';
 	import { page } from '$app/stores';
 
+	import FileItem from '../common/FileItem.svelte';
 	import ShareChatModal from '../chat/ShareChatModal.svelte';
 	import ModelSelector from '../chat/ModelSelector.svelte';
 	import Tooltip from '../common/Tooltip.svelte';
@@ -43,6 +44,19 @@
 	let showDownloadChatModal = false;
 
 	let files;
+
+	// Detect an uploaded file and print it in tne console
+	function handleFileChange(event) {
+		const inputFiles = Array.from(event.target?.files);
+		if (inputFiles && inputFiles.length > 0) {
+			console.log(inputFiles);
+			//inputFilesHandler(inputFiles);
+			return inputFiles;
+		}
+	}
+
+	// Add the uploaded file to the backend uploads folder
+	
 </script>
 
 <ShareChatModal bind:show={showShareChatModal} chatId={$chatId} />
@@ -83,6 +97,7 @@
 				{/if}
 			</div>
 
+			<!-- Upload File button -->
 			{#if $user.role === 'admin'}
 				<div class='mr-5'>
 					<label for='upload-file-input' class='cursor-pointer font-medium'>
@@ -95,9 +110,18 @@
 						hidden
 						on:change={async() => {
 							await showUploadedFiles.set(true);
+							handleFileChange(event);
 						}}
 					>
 				</div>
+			{/if}
+			<!-- End of the Upload File button -->
+
+			{#if files}
+				<h2>Selected files:</h2>
+				{#each Array.from(files) as file}
+					<p>{file.name} ({file.size} bytes)</p>
+				{/each}
 			{/if}
 
 			<div class="self-start flex flex-none items-center text-gray-600 dark:text-gray-400">
