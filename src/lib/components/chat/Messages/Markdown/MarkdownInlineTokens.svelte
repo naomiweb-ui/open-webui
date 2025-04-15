@@ -45,6 +45,8 @@
 		<Image src={token.href} alt={token.text} />
 	{:else if token.type === 'strong'}
 		<strong><svelte:self id={`${id}-strong`} tokens={token.tokens} {onSourceClick} /></strong>
+	{:else if token.type === 'b'}
+		<b><svelte:self id={`${id}-b`} tokens={token.tokens} {onSourceClick} /></b>
 	{:else if token.type === 'em'}
 		<em><svelte:self id={`${id}-em`} tokens={token.tokens} {onSourceClick} /></em>
 	{:else if token.type === 'codespan'}

@@ -753,7 +753,7 @@
 									<ContentRenderer
 										id={message.id}
 										{history}
-										content={formattedText}
+										content={message.content}
 										sources={message.sources}
 										floatingButtons={message?.done && !readOnly}
 										save={!readOnly}
