@@ -44,6 +44,7 @@
 
 	import ArchivedChatsModal from './Sidebar/ArchivedChatsModal.svelte';
 	import UserMenu from './Sidebar/UserMenu.svelte';
+	import LanguageMenu from './Sidebar/LanguageMenu.svelte';
 	import ChatItem from './Sidebar/ChatItem.svelte';
 	import Spinner from '../common/Spinner.svelte';
 	import Loader from '../common/Loader.svelte';
@@ -887,6 +888,10 @@
 					</div>
 				</div>
 			</Folder>
+		</div>
+
+		<div>
+			<LanguageMenu></LanguageMenu>
 		</div>
 
 		<div class="px-2">
