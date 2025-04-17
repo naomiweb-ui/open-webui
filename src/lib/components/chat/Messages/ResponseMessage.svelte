@@ -536,15 +536,16 @@
 		}
 	});
 
+	let paragraph = "This is a test. The most important elements are in **bold** or in _italic_. Here is the [showLink] to Myrian documentation. Here is a blockquote : [showQuote] Here is an illustration from the web : [showWebImage] And here is an image from the backend ressources : [showBackImage]";
+
 	const highlightCitations = (content) => {
 		return content
-			//.replace(/\[(.*?)\]/g, '**$1**')	// converts a string into [ ] in bold and gets rid of [ ]
-			//.replace(/\[(.*?)\]/g, '\n[$1](http://localhost:8080/api/v1/files/5900b946-5a5a-409b-b4cf-f12dc6acf093/content#)')	// converts a string into [ ] into a link and gets rid of [ ]
-			//.replace(/\[(.*?)\]/g, '_$1_')	// converts a string into [ ] in italic and gets rid of [ ]
-			//.replace(/\[(.*?)\]/g, '\n\n>$1\n\n')	 // converts a string into [ ] into a blockquote
+			//.replace(/\[(showLink)\]/g, '[link](http://localhost:8080/api/v1/files/5900b946-5a5a-409b-b4cf-f12dc6acf093/content#)')	// when showLink is detected, converts is into a link
+			//.replace(/\[(showQuote)\]/g, '\n\n\n>$1\n\n\n')	 // when showQuote is detected, converts it into a blockquote
 			//.replace(/\[(.*?)\]/g, '![alt_text](https://www.evolucare.com/wp-content/uploads/2018/07/myrian-intrasense-480x270.png)')	// gets rid of a string into [ ] and displays an image from internet
-			//.replace(/\[(.*?)\]/g, '![alt_text](../../../../assets/emojis/00a9.svg)')	// gets rid of a string into [ ] and displays an image from Open WebUI folder
-			//.replace(/"([^"]+)"/g, '**"$1"**')	// converts words into quotes in bold 
+			//.replace(/\[(showWebImage)\]/g, '![alt_text](https://www.evolucare.com/wp-content/uploads/2018/07/myrian-intrasense-480x270.png)')	// when showWebImage is detected, displays the image
+			//.replace(/\[(showBackImage)\]/g, '![alt_text](../../../../assets/images/space.jpg)')
+			//.replace(/"([^"]+)"/g, '**"$1"**')	// when showBackImage is detected, displays the image
 	};
 
 	const formattedText = highlightCitations(message.content ?? '');
@@ -753,7 +754,13 @@
 									<ContentRenderer
 										id={message.id}
 										{history}
-										content={message.content}
+										content={highlightCitations(
+												(message.content)
+													.replace(/\[(showQuote)\]/g, '\n\n\n>$1\n\n\n')
+													.replace(/\[(showLink)\]/g, '[link](http://localhost:8080/api/v1/files/5900b946-5a5a-409b-b4cf-f12dc6acf093/content#page=120)')
+													.replace(/\[(showWebImage)\]/g, '![alt_text](https://www.evolucare.com/wp-content/uploads/2018/07/myrian-intrasense-480x270.png)')
+													.replace(/\[(showBackImage)\]/g, '![alt_text](../../../../assets/images/space.jpg)')
+												)}
 										sources={message.sources}
 										floatingButtons={message?.done && !readOnly}
 										save={!readOnly}
