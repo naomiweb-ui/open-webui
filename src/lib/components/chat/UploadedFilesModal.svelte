@@ -368,6 +368,7 @@
 
 	// export let inputFilesHandler: Function;
 
+	let files;
 	let uploadedFiles = [];
 	let inputFiles = [];
 

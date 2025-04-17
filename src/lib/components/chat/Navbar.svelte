@@ -47,11 +47,11 @@
 
 	// Detect an uploaded file and print it in tne console
 	function handleFileChange(event) {
-		const inputFiles = Array.from(event.target?.files);
-		if (inputFiles && inputFiles.length > 0) {
-			console.log(inputFiles);
-			//inputFilesHandler(inputFiles);
-			return inputFiles;
+		if (files) {
+			for(const file of files) {
+				console.log(`${file.name}`);
+				return `${file.name}`;
+			}
 		}
 	}
 
@@ -111,6 +111,7 @@
 						on:change={async() => {
 							await showUploadedFiles.set(true);
 							handleFileChange(event);
+							console.log('Uploaded');
 						}}
 					>
 				</div>
@@ -118,9 +119,8 @@
 			<!-- End of the Upload File button -->
 
 			{#if files}
-				<h2>Selected files:</h2>
 				{#each Array.from(files) as file}
-					<p>{file.name} ({file.size} bytes)</p>
+					<p>{file.name}</p>
 				{/each}
 			{/if}
 
