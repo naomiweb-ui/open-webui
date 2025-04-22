@@ -601,7 +601,50 @@
 			window.removeEventListener('resize', onResize);
 		};
 	});
+
+	let minimized = true;
+	function toggleMinimized() {
+		minimized = !minimized;
+	}
 </script>
+
+<style>
+	.floating-app {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 360px;
+    height: 500px;
+    z-index: 9999;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .minimized-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    padding: 0.75rem 1rem;
+    background: #111;
+    color: white;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .close-button {
+    align-self: flex-end;
+    margin: 0.25rem 0.5rem 0 0;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+</style>
 
 <svelte:head>
 	<title>{$WEBUI_NAME}</title>
@@ -612,6 +655,17 @@
 	<!-- <link rel="stylesheet" type="text/css" href="/themes/rosepine.css" />
 	<link rel="stylesheet" type="text/css" href="/themes/rosepine-dawn.css" /> -->
 </svelte:head>
+
+{#if minimized}
+  <div class="minimized-button" on:click={toggleMinimized}>
+    Open Chat
+  </div>
+{:else}
+  <div class="floating-app">
+    <div class="close-button" on:click={toggleMinimized}>×</div>
+    <slot /> <!-- Your entire app will render here -->
+  </div>
+{/if}
 
 {#if loaded}
 	{#if $isApp}
