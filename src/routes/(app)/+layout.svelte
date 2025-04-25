@@ -41,7 +41,6 @@
 
 	import Sidebar from '$lib/components/layout/Sidebar.svelte';
 	import SettingsModal from '$lib/components/chat/SettingsModal.svelte';
-	import ChangelogModal from '$lib/components/ChangelogModal.svelte';
 	import AccountPending from '$lib/components/layout/Overlay/AccountPending.svelte';
 	import UpdateInfoToast from '$lib/components/layout/UpdateInfoToast.svelte';
 	import { get } from 'svelte/store';
@@ -53,6 +52,49 @@
 	let localDBChats = [];
 
 	let version;
+
+	let isLoggedIn = false;
+
+	const login = async() => {
+
+		console.log('working');
+		const verifyLogin = async () => {
+			try {
+				const response = await fetch('http://localhost:4000/verify', {
+					credentials: 'include'
+				});
+				const data = await response.json();
+				console.log(data);
+				console.log(data.authenticated);
+				if (data.authenticated) {
+					isLoggedIn = true;
+					console.log('true');
+				} else {
+					isLoggedIn = false;
+					console.log('false');
+				}
+			} catch(error) {
+				console.error('Verification failed:', error);
+				isLoggedIn = false;
+			}
+		}
+
+		verifyLogin();
+
+		const handleVisibilityChange = () => {
+			if (document.visibilityState === 'visible') {
+				verifyLogin();
+			}
+		}
+
+		document.addEventListener('visibilitychange', handleVisibilityChange);
+
+		return () => {
+			document.removeEventListener('visibilitychange', handleVisibilityChange);
+		};
+	};
+	
+	login();
 
 	onMount(async () => {
 		if ($user === undefined) {
@@ -236,7 +278,10 @@
 </script>
 
 <SettingsModal bind:show={$showSettings} />
-<ChangelogModal bind:show={$showChangelog} />
+
+{#if isLoggedIn}
+	<p>Hello</p>
+{/if}
 
 {#if version && compareVersion(version.latest, version.current) && ($settings?.showUpdateToast ?? true)}
 	<div class=" absolute bottom-8 right-8 z-50" in:fade={{ duration: 100 }}>
