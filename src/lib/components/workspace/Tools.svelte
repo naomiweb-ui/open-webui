@@ -168,7 +168,7 @@
 
 <svelte:head>
 	<title>
-		{$i18n.t('Tools')} | {$WEBUI_NAME}
+		{$i18n.t('Tools')} | Intrasense
 	</title>
 </svelte:head>
 

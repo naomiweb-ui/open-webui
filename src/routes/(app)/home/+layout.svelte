@@ -11,7 +11,7 @@
 
 <svelte:head>
 	<title>
-		{$i18n.t('Home')} | {$WEBUI_NAME}
+		{$i18n.t('Home')} | Intrasense
 	</title>
 </svelte:head>
 
