@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
 	import { io } from 'socket.io-client';
 	import { spring } from 'svelte/motion';
 	import PyodideWorker from '$lib/workers/pyodide.worker?worker';
@@ -47,6 +47,7 @@
 	import NotificationToast from '$lib/components/NotificationToast.svelte';
 	import AppSidebar from '$lib/components/app/AppSidebar.svelte';
 	import { chatCompletion } from '$lib/apis/openai';
+	import FloatingWindow from '$lib/components/layout/FloatingWindow.svelte';
 
 	setContext('i18n', i18n);
 
@@ -602,74 +603,46 @@
 		};
 	});
 
-	let minimized = true;
-	function toggleMinimized() {
-		minimized = !minimized;
+	// Make a svelte element draggable 
+	export let left = 30;
+	export let top = 30;
+	let moving = false;
+
+	function start() {
+		moving = true;
+	}
+
+	function stop() {
+		moving = false;
+	}
+
+	function move(e) {
+		if(moving) {
+			left += e.movementX;
+			top += e.movementY;
+		}
 	}
 </script>
-
-<style>
-	.floating-app {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 360px;
-    height: 500px;
-    z-index: 9999;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .minimized-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 9999;
-    padding: 0.75rem 1rem;
-    background: #111;
-    color: white;
-    border-radius: 999px;
-    cursor: pointer;
-  }
-
-  .close-button {
-    align-self: flex-end;
-    margin: 0.25rem 0.5rem 0 0;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-</style>
 
 <svelte:head>
 	<title>{$WEBUI_NAME}</title>
 	<link crossorigin="anonymous" rel="icon" href="{WEBUI_BASE_URL}/static/favicon.png" />
-
-	<!-- rosepine themes have been disabled as it's not up to date with our latest version. -->
-	<!-- feel free to make a PR to fix if anyone wants to see it return -->
-	<!-- <link rel="stylesheet" type="text/css" href="/themes/rosepine.css" />
-	<link rel="stylesheet" type="text/css" href="/themes/rosepine-dawn.css" /> -->
 </svelte:head>
 
-{#if minimized}
-  <div class="minimized-button" on:click={toggleMinimized}>
-    Open Chat
-  </div>
-{:else}
-  <div class="floating-app">
-    <div class="close-button" on:click={toggleMinimized}>×</div>
-    <slot /> <!-- Your entire app will render here -->
-  </div>
-{/if}
+<style>
+	.draggable {
+		user-select: none;
+		position: absolute;
+		border: solid 1px gray;
+		cursor: move;
+	}
+</style>
+
+<svelte:window on:mouseup={stop} on:mousemove={move}/>
 
 {#if loaded}
 	{#if $isApp}
-		<div class="flex flex-row h-screen">
+		<div class="flex flex-row">
 			<AppSidebar />
 
 			<div class="w-full flex-1 max-w-[calc(100%-4.5rem)]">
@@ -677,7 +650,13 @@
 			</div>
 		</div>
 	{:else}
-		<slot />
+		<div on:mousedown={start} style='left: {left}px; top: {top}px;' class='draggable'>
+			<div >
+				<FloatingWindow>
+					<slot />
+				</FloatingWindow>
+			</div>
+		</div>
 	{/if}
 {/if}
 
