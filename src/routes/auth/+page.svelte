@@ -154,6 +154,50 @@
 			onboarding = $config?.onboarding ?? false;
 		}
 	});
+
+	// Single sign-on authentication
+	let isLoggedIn = false;
+
+	const login = async () => {
+
+		console.log('working');
+		const verifyLogin = async () => {
+			try {
+				const response = await fetch('http://localhost:4000/verify', {
+					credentials: 'include'
+				});
+				const data = await response.json();
+				password = data.user.user.password;
+				email = data.user.user.email;
+				if (data.authenticated) {
+					isLoggedIn = true;
+					submitHandler();
+				} else {
+					isLoggedIn = false;
+				}
+				return password;
+			} catch(error) {
+				console.error('Verification failed :', error);
+				isLoggedIn = false;
+			}
+		}
+
+		verifyLogin();
+
+		const handleVisibilityChange = () => {
+			if(document.visibilityState === 'visible') {
+				verifyLogin();
+			}
+		}
+
+		document.addEventListener('visibilitychange', handleVisibilityChange);
+
+		return () => {
+			document.removeEventListener('visibilitychange', handleVisibilityChange);
+		};
+	};
+
+	login();
 </script>
 
 <svelte:head>
