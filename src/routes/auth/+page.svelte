@@ -9,7 +9,7 @@
 	import { ldapUserSignIn, getSessionUser, userSignIn, userSignUp } from '$lib/apis/auths';
 
 	import { WEBUI_API_BASE_URL, WEBUI_BASE_URL } from '$lib/constants';
-	import { WEBUI_NAME, config, user, socket } from '$lib/stores';
+	import { INTRASENSE_NAME, config, user, socket } from '$lib/stores';
 
 	import { generateInitialsImage, canvasPixelTest } from '$lib/utils';
 
@@ -158,7 +158,7 @@
 
 <svelte:head>
 	<title>
-		{`${$WEBUI_NAME}`}
+		{`${$INTRASENSE_NAME}`}
 	</title>
 </svelte:head>
 
@@ -200,7 +200,7 @@
 							class="flex items-center justify-center gap-3 text-xl sm:text-2xl text-center font-semibold dark:text-gray-200"
 						>
 							<div>
-								{$i18n.t('Signing in to {{WEBUI_NAME}}', { WEBUI_NAME: $WEBUI_NAME })}
+								{$i18n.t('Signing in to {{INTRASENSE_NAME}} assistant', { INTRASENSE_NAME: $INTRASENSE_NAME })}
 							</div>
 
 							<div>
@@ -220,19 +220,19 @@
 							<div class="mb-1">
 								<div class=" text-2xl font-medium">
 									{#if $config?.onboarding ?? false}
-										{$i18n.t(`Get started with {{WEBUI_NAME}}`, { WEBUI_NAME: $WEBUI_NAME })}
+										{$i18n.t(`Get started with {{INTRASENSE_NAME}} assistant`, { INTRASENSE_NAME: $INTRASENSE_NAME })}
 									{:else if mode === 'ldap'}
-										{$i18n.t(`Sign in to {{WEBUI_NAME}} with LDAP`, { WEBUI_NAME: $WEBUI_NAME })}
+										{$i18n.t(`Sign in to {{INTRASENSE_NAME}} with LDAP`, { INTRASENSE_NAME: $INTRASENSE_NAME })}
 									{:else if mode === 'signin'}
-										{$i18n.t(`Sign in to {{WEBUI_NAME}}`, { WEBUI_NAME: $WEBUI_NAME })}
+										{$i18n.t(`Sign in to {{INTRASENSE_NAME}}`, { INTRASENSE_NAME: $INTRASENSE_NAME })}
 									{:else}
-										{$i18n.t(`Sign up to {{WEBUI_NAME}}`, { WEBUI_NAME: $WEBUI_NAME })}
+										{$i18n.t(`Sign up to {{INTRASENSE_NAME}}`, { INTRASENSE_NAME: $INTRASENSE_NAME })}
 									{/if}
 								</div>
 
 								{#if $config?.onboarding ?? false}
 									<div class=" mt-1 text-xs font-medium text-gray-500">
-										ⓘ {$WEBUI_NAME}
+										ⓘ {$INTRASENSE_NAME}
 										{$i18n.t(
 											'does not make any external connections, and your data stays securely on your locally hosted server.'
 										)}
