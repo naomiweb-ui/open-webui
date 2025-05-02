@@ -146,7 +146,7 @@
 			>
 				<div
 					class=" {$showCallOverlay || $showOverview || $showArtifacts
-						? ' w-full'
+						? 'h-screen w-full'
 						: 'px-6 py-4'} h-full"
 				>
 					{#if $showCallOverlay}

@@ -638,8 +638,6 @@
 	}
 </style>
 
-<svelte:window on:mouseup={stop} on:mousemove={move}/>
-
 {#if loaded}
 	{#if $isApp}
 		<div class="flex flex-row h-screen">
@@ -650,16 +648,7 @@
 			</div>
 		</div>
 	{:else}
-		<div on:mousedown={start} style='left: {left}px; top: {top}px;' class='draggable'>
-			<svg 
-				class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
-				on:click={() => {
-					close = true;
-					console.log('hello');
-				}}
-			>
-					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
-			</svg>
+		<div>
 			<slot />
 		</div>
 	{/if}
